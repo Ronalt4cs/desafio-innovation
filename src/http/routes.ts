@@ -8,8 +8,8 @@ import { registerCounty } from './controllers/register-county'
 export async function appRoutes(app: FastifyInstance) {
   app.post('/products', registerProduct)
   app.get('/products', fetchProducts)
-  app.patch('/products', updateProduct)
-  app.delete('/products', deleteProduct)
+  app.patch('/products/:id', updateProduct)
+  app.delete('/products/:id', deleteProduct)
 
   app.post('/counties', registerCounty)
 }
