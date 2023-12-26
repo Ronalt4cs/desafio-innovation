@@ -11,3 +11,14 @@ export const fetchProductsQueryRequest = z.object({
   page: z.coerce.number().positive().int().optional(),
   itemsPerPage: z.coerce.number().positive().int().optional()
 })
+
+export const updateProductParamsSchema = z.object({
+  id: z.string()
+})
+
+export const updateProductBodySchema = z.object({
+  name: z.string().optional(),
+  category: z.string().optional(),
+  status: z.enum(['active', 'inactive']).optional(),
+  quantity: z.number().optional(),
+})

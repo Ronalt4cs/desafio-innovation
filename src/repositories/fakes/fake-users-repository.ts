@@ -1,4 +1,4 @@
-import { Prisma, Product } from '@prisma/client'
+import { $Enums, Prisma, Product } from '@prisma/client'
 import { ProductsRepository } from '../products-repository'
 import { randomUUID } from 'node:crypto'
 
@@ -37,5 +37,20 @@ export class FakeProductsRepository implements ProductsRepository {
         totalItems
       }
     }
+  }
+
+  async update(id: string, data: Prisma.ProductUncheckedUpdateInput) {
+    const productFound = this.items.find((product => {
+      return product.id === id
+    }))
+
+    if (!productFound) {
+      return null
+    }
+
+    const productUpdated = Object.assign(productFound, data)
+    this.items.push(productUpdated)
+
+    return productUpdated
   }
 }

@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import { Prisma } from '@prisma/client'
+import { $Enums, Prisma } from '@prisma/client'
 import { ProductsRepository } from '../products-repository'
 import { FetchProductsServiceResponse } from '@/services/fetch-products'
 
@@ -36,5 +36,19 @@ export class PrismaProductsRepository implements ProductsRepository {
       products,
       pagination
     }
+  }
+
+  async update(id: string, data: Prisma.ProductUncheckedUpdateInput) {
+    const product = await prisma.product.update({
+      where: {
+        id
+      },
+      data: {
+        ...data,
+        updated_at: new Date()
+      }
+    })
+
+    return product
   }
 }
