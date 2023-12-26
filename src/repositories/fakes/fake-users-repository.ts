@@ -53,4 +53,19 @@ export class FakeProductsRepository implements ProductsRepository {
 
     return productUpdated
   }
+
+  async delete(id: string) {
+    const productIndex = this.items.findIndex(product => {
+      return product.id === id
+    })
+
+    if (productIndex === -1) {
+      return null
+    }
+
+    const productDeleted = this.items[productIndex]
+    this.items.splice(productIndex, 1)
+
+    return productDeleted
+  }
 }

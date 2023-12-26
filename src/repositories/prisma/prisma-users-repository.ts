@@ -51,4 +51,14 @@ export class PrismaProductsRepository implements ProductsRepository {
 
     return product
   }
+
+  async delete(id: string) {
+    const product = await prisma.product.delete({
+      where: {
+        id
+      }
+    })
+
+    return product
+  }
 }

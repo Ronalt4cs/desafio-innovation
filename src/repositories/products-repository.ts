@@ -5,4 +5,5 @@ export interface ProductsRepository {
   create(data: Prisma.ProductUncheckedCreateInput): Promise<Product>
   fetchProducts(page: number, itemsPerPage: number): Promise<FetchProductsServiceResponse>
   update(id: string, data: Prisma.ProductUncheckedUpdateInput): Promise<Product | null>
+  delete(id: string): Promise<Product | null>
 }
