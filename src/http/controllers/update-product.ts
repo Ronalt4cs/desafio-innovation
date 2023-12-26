@@ -1,9 +1,9 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { updateProductBodySchema, updateProductParamsSchema } from '../helpers/products-schemas'
+import { updateProductBodySchema, productParamsSchema } from '../helpers/products-schemas'
 import { MakeUpdateProductService } from '@/services/factories/make-update-product-service'
 
 export async function UpdateProduct(request: FastifyRequest, reply: FastifyReply) {
-  const { id } = updateProductParamsSchema.parse(request.params)
+  const { id } = productParamsSchema.parse(request.params)
   const { name, category, quantity, status } = updateProductBodySchema.parse(request.body)
 
   const makeUpdateProductService = MakeUpdateProductService()
