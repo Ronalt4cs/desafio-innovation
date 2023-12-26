@@ -5,16 +5,6 @@ import { randomUUID } from 'node:crypto'
 export class FakeProductsRepository implements ProductsRepository {
   public items: Product[] = []
 
-  async getById(userId: string) {
-    const user = this.items.find((item) => item.id === userId)
-
-    if (!user) {
-      return null
-    }
-
-    return user
-  }
-
   async create(data: Prisma.ProductUncheckedCreateInput) {
     const product = {
       id: randomUUID(),
@@ -30,5 +20,22 @@ export class FakeProductsRepository implements ProductsRepository {
     this.items.push(product)
 
     return product
+  }
+
+  async fetchProducts(page: number, itemsPerPage: number) {
+    const skip = (page - 1) * itemsPerPage
+    const take = itemsPerPage
+    const totalItems = this.items.length
+
+    const products = this.items.slice(skip, take)
+
+    return {
+      products,
+      pagination: {
+        page,
+        itemsPerPage,
+        totalItems
+      }
+    }
   }
 }
